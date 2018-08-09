@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on diamondburned&#39;s stupid blog posts</title>
+    <link>https://blog.diamondb.xyz/post/</link>
+    <description>Recent content in Posts on diamondburned&#39;s stupid blog posts</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 07 Aug 2018 18:38:36 +0700</lastBuildDate>
+    
+	<atom:link href="https://blog.diamondb.xyz/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Migrating over to Hugo</title>
+      <link>https://blog.diamondb.xyz/post/migrating-over-to-hugo/</link>
+      <pubDate>Tue, 07 Aug 2018 18:38:36 +0700</pubDate>
+      
+      <guid>https://blog.diamondb.xyz/post/migrating-over-to-hugo/</guid>
+      <description>&amp;ldquo;Migrating over to Hugo is very easy.&amp;rdquo; This was my thought when I first make a document for my bot. I was astonished by the speed of it. I was able to edit the markdown pages and instantly preview it when I need to. The theme I used was very flexible, and although I had trouble with the Hugo template, I quickly got used to it and changed most of the theme.</description>
+    </item>
+    
+  </channel>
+</rss>

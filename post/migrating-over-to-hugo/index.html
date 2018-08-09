@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+			
+				<meta name="description" content="My experiences, opinions and things I achieved">
+			
+		
+	
+		<title>
+			
+				Migrating over to Hugo &middot; diamondburned&#39;s stupid blog posts
+			
+		</title>
+	
+		
+		<style>
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    line-height: 1.65rem
+}
+html, body {
+    color: #aaa;
+    margin: 0;
+    padding: 0
+}
+html {
+    font-family: sans-serif, "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 1rem;
+    overflow-y: scroll;
+    background: #171717;
+}
+body {
+    -webkit-text-size-adjust: 100%;
+    max-width: 800px;
+    width: 100vw;
+    margin: 0px auto;
+    background: #1d1d1d;
+    min-height: 100vh;
+    padding-bottom: 60px;
+    position: relative;
+    box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.5);
+}
+h1, h2, h3, h4, h5, h6 {
+    color: #AAAAAA;
+    line-height: normal;
+    margin-bottom: 0.5em;
+    margin-top: 1em;
+}
+a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+blockquote {
+    border-left: .25rem solid #1a1a1a;
+    color: #686868;
+    margin: .8rem 0;
+    padding: .5rem 1rem
+}
+blockquote p:last-child {
+    margin-bottom: 0
+}
+img {
+    display:block;
+    margin:0 0 1rem;
+    max-width:100%
+}
+td {
+    vertical-align:top
+}
+pre, code {
+    font-family: "Noto Mono", monospace;
+}
+code {
+    background-color:#060606;
+    border-radius:3px;
+    color:#409e95;
+    font-size: 0.9em;
+    padding: .1em .25em;
+    box-shadow: inset 0px 0px 3px rgba(0,0,0,0.75);
+}
+pre code {
+    box-shadow: none;
+}
+pre {
+    margin:0 0 1rem;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    background-color: rgba(0,0,0,0.5);
+    padding: 1em;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 10px rgba(0,0,0,0.75);
+}
+pre code {
+    background-color:transparent;
+    font-size:0.9em;
+    padding:0
+}
+.highlight {
+    background-color:#060606;
+    border-radius:3px;
+    line-height:1.4;
+    margin:0 0 1rem;
+    padding:1rem
+}
+.highlight pre {
+    margin-bottom:0;
+    overflow-x:auto
+}
+.highlight .lineno {
+    color:#555;
+    display:inline-block;
+    padding:0 .75rem 0 .25rem;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    user-select:none
+}
+.post {
+    padding: 1em
+}
+.post-info {
+    color:#555;
+    letter-spacing:.5px;
+    text-align:center
+}
+.post-info span {
+    font-style:italic
+}
+.post-title {
+    color:#aaaaaa;
+    font-size:3rem;
+    margin:1rem 0;
+    text-align:center
+}
+.post-line {
+    border-top: 2px solid rgba(255,255,255,0.5);
+    display:block;
+    margin: 0 auto 1rem;
+    width:50%;
+}
+.post p {
+    margin:0 0 1rem;
+    text-align:justify
+}
+.post a:hover {
+    text-decoration:underline
+}
+.post img {
+    margin:0 auto .5rem
+}
+.post img + em {
+    color:#555;
+    display:block;
+    font-size:1rem;
+    font-style:normal;
+    text-align:center
+}
+.post img.emoji {
+    display:inline-block;
+    left:0;
+    transform:none;
+    width:1rem;
+    height:1rem;
+    vertical-align:text-top;
+    padding:0;
+    margin:0
+}
+.highlight .hll {
+    background-color:#ffc
+}
+.highlight .c {
+    color:#999
+}
+.highlight .err {
+    color:#a00;
+    background-color:#faa
+}
+.highlight .k {
+    color:#069
+}
+.highlight .o {
+    color:#555
+}
+.highlight .cm {
+    color:#09f;
+    font-style:italic
+}
+.highlight .cp {
+    color:#099
+}
+.highlight .c1 {
+    color:#999
+}
+.highlight .cs {
+    color:#999
+}
+.highlight .gd {
+    background-color:#fcc;
+    border:1px solid #c00
+}
+.highlight .ge {
+    font-style:italic
+}
+.highlight .gr {
+    color:red
+}
+.highlight .gh {
+    color:#030
+}
+.highlight .gi {
+    background-color:#cfc;
+    border:1px solid #0c0
+}
+.highlight .go {
+    color:#aaa
+}
+.highlight .gp {
+    color:#009
+}
+.highlight .gu {
+    color:#030
+}
+.highlight .gt {
+    color:#9c6
+}
+.highlight .kc {
+    color:#069
+}
+.highlight .kd {
+    color:#069
+}
+.highlight .kn {
+    color:#069
+}
+.highlight .kp {
+    color:#069
+}
+.highlight .kr {
+    color:#069
+}
+.highlight .kt {
+    color:#078
+}
+.highlight .m {
+    color:#f60
+}
+.highlight .s {
+    color:#d44950
+}
+.highlight .na {
+    color:#4f9fcf
+}
+.highlight .nb {
+    color:#366
+}
+.highlight .nc {
+    color:#0a8
+}
+.highlight .no {
+    color:#360
+}
+.highlight .nd {
+    color:#99f
+}
+.highlight .ni {
+    color:#999
+}
+.highlight .ne {
+    color:#c00
+}
+.highlight .nf {
+    color:#c0f
+}
+.highlight .nl {
+    color:#99f
+}
+.highlight .nn {
+    color:#0cf
+}
+.highlight .nt {
+    color:#2f6f9f
+}
+.highlight .nv {
+    color:#033
+}
+.highlight .ow {
+    color:#000
+}
+.highlight .w {
+    color:#bbb
+}
+.highlight .mf {
+    color:#f60
+}
+.highlight .mh {
+    color:#f60
+}
+.highlight .mi {
+    color:#f60
+}
+.highlight .mo {
+    color:#f60
+}
+.highlight .sb {
+    color:#c30
+}
+.highlight .sc {
+    color:#c30
+}
+.highlight .sd {
+    color:#c30;
+    font-style:italic
+}
+.highlight .s2 {
+    color:#c30
+}
+.highlight .se {
+    color:#c30
+}
+.highlight .sh {
+    color:#c30
+}
+.highlight .si {
+    color:#a00
+}
+.highlight .sx {
+    color:#c30
+}
+.highlight .sr {
+    color:#3aa
+}
+.highlight .s1 {
+    color:#c30
+}
+.highlight .ss {
+    color:#fc3
+}
+.highlight .bp {
+    color:#366
+}
+.highlight .vc {
+    color:#033
+}
+.highlight .vg {
+    color:#033
+}
+.highlight .vi {
+    color:#033
+}
+.highlight .il {
+    color:#f60
+}
+.css .o, .css .o + .nt, .css .nt + .nt {
+    color:#999
+}
+.container {
+    margin:0 auto;
+    max-width:800px;
+    width:80%
+}
+footer, .nav-container {
+    display:block;
+    margin:0 auto;
+    max-width:800px;
+    width:80%;
+    padding: 0 .5em;
+}
+main {
+    max-width: 800px;
+    width: 100vw;
+    padding: 0 .5em;
+}
+.if-nav-fixed {
+    height: 0px;
+}
+.nav {
+    box-shadow: 0 0px .5px 0px rgba(255, 255, 255, 0.5);
+    overflow:auto;
+    min-height: 65px;
+    background: #1d1d1d;
+}
+.nav-container {
+    margin: 1em auto;
+    width: 100%;
+    position:relative;
+    display: inline-table;
+}
+.title, .menu {
+    display: inline;
+    margin: 0 1em;
+}
+.title {
+    float: left;
+    display:table-cell;
+    vertical-align:middle   
+}
+.menu {
+    float: right;
+    display:table-cell;
+    vertical-align:middle   
+}
+.nav-title {
+    -webkit-transition:all .2s ease-out;
+    -moz-transition:all .2s ease-out;
+    transition:all .2s ease-out;
+    color:#AAA;
+    display:inline-block;
+    margin:0;
+    padding-right:.2rem
+}
+.nav-title:hover, .nav-title:focus {
+    opacity:.6
+}
+h2.nav-title {
+}
+.nav ul {
+    list-style-type:none;
+    margin: 0;
+    line-height: 1.5;
+    padding:0;
+}
+.nav li {
+    -webkit-transition:all .2s ease-out;
+    -moz-transition:all .2s ease-out;
+    transition:all .2s ease-out;
+    color:#aaa;
+    display:inline-block;
+    opacity:.6;
+    padding:0 2rem 0 0
+}
+.nav li:last-child {
+    padding-right:0
+}
+.nav li:hover, .nav li:focus {
+    opacity:1
+}
+.nav a {
+    color:#aaa;
+}
+footer {
+    position: absolute;
+    bottom: 0;
+    height: 24px;
+    padding: 3em 0;
+    text-align: center;
+    max-width: 500px;
+    width: 100vw;
+    margin: 0 auto;
+    bottom: 1em;
+    left: 0;
+    right: 0;
+}
+footer span {
+    color:#aaa;
+    font-size:.8rem
+}
+p.footer {
+    margin: 0;
+}
+.pagination {
+    border-top: .5px solid transparent;
+    position: absolute;
+    text-align: center;
+    max-width: 500px;
+    width: 100vw;
+    margin: 0 auto;
+    bottom: 4em;
+    left: 0;
+    right: 0;
+}
+.pagination span {
+    color:#aaaaaa;
+    font-size:1.1rem
+}
+.pagination .top {
+    -webkit-transition:all .3s ease-out;
+    -moz-transition:all .3s ease-out;
+    transition:all .3s ease-out;
+    color:#aaa;
+    font-size:1.1rem;
+    opacity:.6
+}
+.pagination .top:hover {
+    opacity:1
+}
+.pagination .arrow {
+    -webkit-transition:all .3s ease-out;
+    -moz-transition:all .3s ease-out;
+    transition:all .3s ease-out;
+    color:#aaa;
+    position:absolute
+}
+.pagination .arrow:hover, .pagination .arrow:focus {
+    opacity:.6;
+    text-decoration:none
+}
+.pagination .left {
+    left:0
+}
+.pagination .right {
+    right:0
+}
+.catalogue-item {
+    border-bottom:1px solid #1a1a1a;
+    color:#aaa;
+    display:inline-block;
+    padding: 1rem 1rem 2rem;
+}
+.catalogue-item:hover .catalogue-line, .catalogue-item:focus .catalogue-line {
+    width:5rem
+}
+.catalogue-item:last-child {
+    border:0
+}
+.catalogue-time {
+    color:#555;
+    letter-spacing:.5px;
+    font-family: "Noto Mono", monospace;
+}
+.catalogue-title {
+    color:#aaaaaa;
+    display:block;
+    font-size:2rem;
+    font-weight:700;
+    margin: 0;
+    margin-bottom :.5rem 
+}
+.catalogue-line {
+    -webkit-transition:all .3s ease-out;
+    -moz-transition:all .3s ease-out;
+    transition:all .3s ease-out;
+    border-top:.2rem solid #aaaaaa;
+    display:block;
+    width:2rem
+}
+.fab {
+    font-weight: 500 !important;
+}
+</style>
+		
+			
+				<style> 
+					html { 
+						font-family: "Source Sans Pro","Noto Sans","Helvetica","Segoe UI",
+								sans-serif, "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" 
+					} 
+				</style>
+			
+			
+			
+			
+				<style>
+					.nav {position: fixed; max-width: 800px; width: 100vw;}
+					.if-nav-fixed {max-height: 12vh; height: 8vw;}
+					@media only screen and (max-width: 600px) { .if-nav-fixed {max-height: 22vh; height: 18vh;} }
+				</style>
+			
+			
+			
+				<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+			
+		
+		<link rel="icon" href="images/icon.png">
+
+		
+		<link href="" rel="alternate" type="application/rss+xml" title="diamondburned&#39;s stupid blog posts" />
+	</head>
+		
+
+  <body>
+		<nav class="nav">
+			<div class="nav-container">
+				<div class="title">
+					<a href="https://blog.diamondb.xyz/">
+						<h2 class="nav-title">diamondburned&#39;s stupid blog posts</h2>
+					</a>
+				</div>
+				<div class="menu"><h2 class="nav-title">
+					<ul>
+						<li><a href="https://blog.diamondb.xyz">
+							<i class="fas fa-home"></i>
+						</a></li>
+						<li><a href="https://diamondb.xyz/">
+							<i class="fas fa-info-circle"></i>
+						</a></li>
+						
+						
+							<li><a href="https://gitlab.com/diamondburned">
+								<i class="fab fa-gitlab"></i>
+							</a></li>
+						
+						
+							<li><a href="mailto:diamondburned@diamondb.xyz">
+								<i class="fas fa-envelope"></i>
+							</a></li>
+						
+						
+					</ul>
+				</h2></div>
+			</div>
+		</nav>
+		<div class="if-nav-fixed"></div>
+
+<main>
+	<div class="post">
+		<div class="post-info">
+		<span>Written by</span>
+		
+			diamondburned
+		
+
+		
+			<br>
+			<span>on&nbsp;</span><time datetime="2018-08-07 18:38:36 &#43;0700 &#43;07">August 7, 2018</time>
+		
+		</div>
+
+		<h1 class="post-title">Migrating over to Hugo</h1>
+		<div class="post-line"></div>
+
+		
+
+<h2 id="migrating-over-to-hugo-is-very-easy">&ldquo;Migrating over to Hugo is very easy.&rdquo;</h2>
+
+<p>This was my thought when I first make <a href="https://butterfly.diamondb.xyz/">a document for my bot</a>. I was astonished by the speed of it. I was able to edit the markdown pages and instantly preview it when I need to. The theme I used was very flexible, and although I had trouble with the Hugo template, I quickly got used to it and changed most of the theme.</p>
+
+<p>I then promoted Hugo, telling everyone to switch to Hugo, as it is superior to everything. You know, the typical fanboy stuff. And then it came to me when someone asked me to help them.</p>
+
+<h2 id="so-what-really-happened">So what really happened?</h2>
+
+<p>Initially I chose a theme named Kiss. Very simple looking. &ldquo;Perfect!&rdquo;, I thought, &ldquo;It&rsquo;s a very simple looking theme, the CSS has to be simple too, right?&rdquo; I had this mindset until the moment I actually opened the CSS file did I realise it&rsquo;s almost 6000 lines long!</p>
+
+<p><img src="/images/kiss_bloat.png" alt="What looks very simple, is actually bloat" />
+What looks very simple, is actually bloat</p>
+
+<h2 id="this-means-hugo-themes-are-crappy-and-i-should-stick-to-my-bash-static-page-generator-right">This means Hugo themes are crappy and I should stick to my Bash static page generator, right?</h2>
+
+<p>No wait! Before you move back to that Bash static page generator, let me tell the rest of my story.</p>
+
+<p>Another guy I was helping was using a theme called &ldquo;Tale&rdquo;, which was ported over from Jekyll. A very simple looking theme, even simpler-looking than Kiss. Now this couldn&rsquo;t get any simpler, right? Wrong. What greeted me was a <code>scss</code> file linking to several other different <code>scss</code> files. No problem, I can just edit them, right? Again, wrong! Hugo wasn&rsquo;t using any of that, but it was taking CSS from an already generated file! To top things off, you can&rsquo;t make Hugo generate SCSS!</p>
+
+<pre><code>Building sites … ERROR 2018/08/07 17:23:39 error: failed to transform resource: TOCSS: failed to transform &quot;scss/tale.scss&quot; (text/x-scss): this feature is not available in your current Hugo version
+</code></pre>
+
+<h2 id="still-means-hugo-is-crappy-right">Still means Hugo is crappy, right?</h2>
+
+<p>Nope! But just let me finish my story first, alright?</p>
+
+<p>After that happened, I went to the AUR and grabbed a package called <code>python2-pyscss</code> which compiles SCSS files into one CSS file. I then put that in Stylus to Beautify it and started tinkering around with it. First, I tidied up the CSS code. Then, I added my own styles. Finally, I added extra codes into the body to add more features, such as social network buttons, the one you can see on the top right.</p>
+
+<h2 id="wait-a-minute-you-re-just-plugging-your-theme">Wait a minute! You&rsquo;re just plugging your theme!</h2>
+
+<p>Congratulations, you realized!</p>
+
+<p>Just joking, I didn&rsquo;t really mean to plug my own theme. I just couldn&rsquo;t find any theme that suited my needs, so I decided to go with the simplest theme I could find, which turns out to be even more complicated than I thought!</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Hugo is great, it&rsquo;s fast and all. Theming it is a disaster, however, as I had to make my own theme. Once I nailed that down though, everything worked fine.</p>
+
+<h2 id="what-i-made">What I made</h2>
+
+<p>Currently, I&rsquo;m working on a theme, and this blog right now is using it. I&rsquo;ll publicize this once I find it to be customizable enough. For now, I&rsquo;ll be working on it.</p>
+
+
+	</div>
+</main>
+
+<div class="pagination">
+	
+	
+
+	<a href="#" class="top">Top</a>
+</div>
+		<footer>
+			<span>
+				<p class="footer">Discord: <code>_diamondburned_#4507</code></p>
+				
+  					
+  						<p class="footer credits">
+  							<a href="https://gitlab.com/diamondburned/burned/">Theme made by diamondburned</a>, powered by <a href="https://gohugo.io/">Hu<strong>go</strong></a>
+  						</p>
+  					
+  				
+			</span>
+		</footer>
+  </body>
+</html>
